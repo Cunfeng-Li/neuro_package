@@ -1,0 +1,16 @@
+<launch>
+	<arg name="rviz" default="1"/>
+    <arg name="neuro_namespace_id" default="neuro"/>
+	<!-- <include file="$(find rbx2_tasks)/launch/fake_turtlebot.launch"> -->
+    <!-- </include> -->
+    <!-- <node ns="$(arg neuro_namespace_id)" name="rviz" pkg="rviz" type="rviz" args="-d $(find rbx2_tasks)/nav_tasks.rviz"> -->
+    <!-- </node> -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rbx2_tasks)/nav_tasks.rviz"> 
+    </node>
+    <node name="pub_location" pkg="neuro" type="pub_location.py" >
+    </node>
+    <node name="pub_recognize_goal" pkg="neuro" type="pub_recognize_goal.py" >
+    </node>
+    <node name="neuro_smach" pkg="neuro" type="neuro_smach.py" >
+    </node>
+</launch>
