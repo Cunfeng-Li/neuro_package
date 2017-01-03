@@ -24,7 +24,7 @@
 """
 from move_base_msgs.msg import *
 from geometry_msgs.msg import *
-from drv_msgs.msg import *
+#from drv_msgs.msg import *
 from moveit_msgs.msg import *
 import rospy
 from std_msgs.msg import String, Float32
@@ -35,7 +35,23 @@ import actionlib_msgs.msg as alm
 from rbx2_msgs.srv import *
 
 from rbx2_tasks.task_setup import *
+
+import rospy, sys
+import moveit_commander
+from moveit_msgs.msg import RobotTrajectory
+from trajectory_msgs.msg import JointTrajectoryPoint
+
+from geometry_msgs.msg import PoseStamped, Pose
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
+
+
+
+
+
+#global flag
 flag = 0
+
+
 
 class Stop(State):
     def __init__(self):
@@ -48,6 +64,7 @@ class Stop(State):
 
         # def callback(data):
         #  rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+
 
 
 class Patrol():
@@ -76,7 +93,9 @@ class Patrol():
 
         location_goal = MoveBaseGoal()
         result_goal = MoveBaseGoal()
-        recognize_goal = VisionGoal()
+        #recognize_goal = VisionGoal()
+        #flag = 1
+
 
         class wait(State):
             def __init__(self):
@@ -87,6 +106,8 @@ class Patrol():
                     return 'aborted'
                 else:
                     return 'succeeded'
+
+
 
         class MoveItDemo(State):
    
@@ -131,14 +152,14 @@ class Patrol():
 		target_pose = PoseStamped()
 		target_pose.header.frame_id = reference_frame
 		target_pose.header.stamp = rospy.Time.now()     
-		global a,b,c,d,e,f,g 
-		target_pose.pose.position.x = a
-		target_pose.pose.position.y = b
-		target_pose.pose.position.z = c
-		target_pose.pose.orientation.x = d
-		target_pose.pose.orientation.y = e
-		target_pose.pose.orientation.z = f
-		target_pose.pose.orientation.w = g
+		#global a,b,c,d,e,f,g 
+		target_pose.pose.position.x = 0.3
+		target_pose.pose.position.y = -0.45
+		target_pose.pose.position.z = 1.35
+		target_pose.pose.orientation.x = 0
+		target_pose.pose.orientation.y = 0
+		target_pose.pose.orientation.z = 0
+		target_pose.pose.orientation.w = 1
 		#Set the start state to the current state
 		right_arm.set_start_state_to_current_state()
 		#print a
@@ -192,7 +213,9 @@ class Patrol():
                 return 'succeeded'
 
 
-       
+
+
+
         # Turn the waypoints into SMACH states
         for waypoint in self.waypoints:
             nav_goal = MoveBaseGoal()
@@ -200,8 +223,8 @@ class Patrol():
             nav_goal.target_pose.pose = waypoint
             move_base_state = SimpleActionState('move_base', MoveBaseAction, goal=nav_goal,
                                                 result_cb=self.move_base_result_cb,
-                                                exec_timeout=rospy.Duration(10.0),
-                                                server_wait_timeout=rospy.Duration(10.0))
+                                                exec_timeout=rospy.Duration(20.0),
+                                                server_wait_timeout=rospy.Duration(20.0))
             nav_states.append(move_base_state)
 
         # Create a MoveBaseAction state for the docking station
@@ -219,6 +242,9 @@ class Patrol():
         pose_target.position.y = -0.0
         pose_target.position.z = 1.1
 
+        result_goal.target_pose.header.frame_id = 'map'
+        result_goal.target_pose.pose = (Pose(Point(0.5, 1.5, 0.0), Quaternion(0.0, 0.0, 0.0, 1.0)))
+
         # Initialize the navigation state machine
         self.sm_nav = StateMachine(outcomes=['succeeded', 'aborted', 'preempted'])
 
@@ -229,13 +255,11 @@ class Patrol():
             StateMachine.add('NAV_STATE_0', nav_states[0],
                              transitions={'succeeded': 'NAV_STATE_1', 'aborted': 'NAV_STATE_1'})
             StateMachine.add('NAV_STATE_1', SimpleActionState('move_base', MoveBaseAction, goal=location_goal),
-                             transitions={'succeeded': 'VISION', 'aborted': 'VISION'})
-
-            StateMachine.add('VISION', SimpleActionState('drv_action', VisionAction, goal=recognize_goal),
                              transitions={'succeeded': 'ARM', 'aborted': 'ARM'})
 
-            #StateMachine.add('ARM', SimpleActionState('move_base', MoveBaseAction, goal=result_goal),
-                             #transitions={'succeeded': 'NAV_STATE_0', 'aborted': 'NAV_STATE_0'})
+            #StateMachine.add('VISION', SimpleActionState('drv_action', VisionAction, goal=recognize_goal),
+                             #transitions={'succeeded': 'ARM', 'aborted': 'ARM'})
+
             StateMachine.add('ARM', MoveItDemo(),
                              transitions={'succeeded': 'NAV_STATE_2', 'aborted': 'NAV_STATE_2'})
             StateMachine.add('NAV_STATE_2', nav_states[0],
@@ -271,7 +295,7 @@ class Patrol():
             Concurrence.add('LOCATION_GOAL', MonitorState("nav_location_goal", Pose, self.nav_location_goal_cb))
             Concurrence.add('RECOGNIZE_GOAL',
                             MonitorState("/comm/msg/control/recognize_goal", String, self.recognize_goal_cb))
-            Concurrence.add('RESULT', MonitorState("/drv_action/result", VisionActionResult, self.result_goal_cb))
+            #Concurrence.add('RESULT', MonitorState("/drv_action/result", VisionActionResult, self.result_goal_cb))
 
         # Create the top level state machine
         self.sm_top = StateMachine(outcomes=['succeeded', 'aborted', 'preempted'])
@@ -343,6 +367,7 @@ class Patrol():
             return True
 
     def nav_location_goal_cb(self, userdata, msg):
+        #if msg != []:
         global flag
         flag = 1
         self.nav_patrol._states["SM_NAV"]._states["NAV_STATE_1"]._goal.target_pose.header.frame_id = 'map'
@@ -354,20 +379,12 @@ class Patrol():
         self.nav_patrol._states["SM_NAV"]._states["VISION"]._goal.target_label = msg.data
         return True
 
-    def result_goal_cb(self, userdata, msg):
+    #def result_goal_cb(self, userdata, msg):
         # self.nav_patrol._states["SM_NAV"]._states["VISION"]._goal.mode = 1
         #self.nav_patrol._states["SM_NAV"]._states["ARM"]._goal.target_pose.header.frame_id = 'map'
         #self.nav_patrol._states["SM_NAV"]._states["ARM"]._goal.target_pose.pose = msg.result.target_location.pose
         #rospy.loginfo(self.nav_patrol._states["SM_NAV"]._states["ARM"]._goal)
-        global a,b,c,d,e,f,g
-        a = msg.result.target_location.pose.position.x
-        b = msg.result.target_location.pose.position.y
-        c = msg.result.target_location.pose.position.z
-        d = msg.result.target_location.pose.orientation.x
-        e = msg.result.target_location.pose.orientation.y
-        f = msg.result.target_location.pose.orientation.z
-        g = msg.result.target_location.pose.orientation.w
-        return True
+        #return True
 
     def recharge_cb(self, userdata, response):
         return 'succeeded'

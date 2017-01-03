@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: neurobotboth
+    relative_path: urdf/neurobotboth.urdf
+  SRDF:
+    relative_path: config/neurobotboth.srdf
+  CONFIG:
+    generated_timestamp: 1482931748

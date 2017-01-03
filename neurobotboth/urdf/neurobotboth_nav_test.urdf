@@ -1,0 +1,907 @@
+<robot
+  name="neurobotboth">
+  <link 
+    name="base_footprint">
+    <visual>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+       <box size="0.05 0.05 0.001"/>
+    </geometry>
+    <material name="TransparentGreen"/>
+    </visual>
+  </link>
+  <link
+    name="base_leg">
+    <inertial>
+      <origin
+        xyz="0 -1.11022302462516E-16 0.2335"
+        rpy="0 0 0" />
+      <mass
+        value="4.43804940190996" />
+      <inertia
+        ixx="0.0840137545279562"
+        ixy="0"
+        ixz="-5.53246823430371E-34"
+        iyy="0.0840137545279562"
+        iyz="1.8876145408187E-34"
+        izz="0.00671254972038881" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/base_leg.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/base_leg.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_footprint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_leg"/>
+  </joint>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.00215359092121389 -0.000793224055706809 0.502026253045581"
+        rpy="0 0 0" />
+      <mass
+        value="2.59431720777893" />
+      <inertia
+        ixx="0.3523313561318"
+        ixy="0.000539614748826474"
+        ixz="0.00816862739544269"
+        iyy="0.351242034325023"
+        iyz="-0.00125197561514708"
+        izz="0.0345525607669928" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_base"
+    type="fixed">
+    <origin
+      xyz="-0.0056343 4.8341E-05 0.467"
+      rpy="0 0 0" />
+    <parent
+      link="base_leg" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_arm_link_0">
+  </link>
+  <joint
+    name="right_arm_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0056343 -0.14605 0.919"
+      rpy="1.5708 0.30972 -3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_arm_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_arm_link_1">
+    <inertial>
+      <origin
+        xyz="-0.000327200298236963 -1.66533453693773E-16 -0.0359628362808107"
+        rpy="0 0 0" />
+      <mass
+        value="0.107035798022397" />
+      <inertia
+        ixx="0.000188785968780782"
+        ixy="-7.68864379368039E-21"
+        ixz="-1.68236451485131E-06"
+        iyy="0.000157075498484323"
+        iyz="-2.07212052166984E-19"
+        izz="0.000125761271549389" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_1"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.001"
+      rpy="0 0 0" />
+    <parent
+      link="right_arm_link_0" />
+    <child
+      link="right_arm_link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="right_arm_link_2">
+    <inertial>
+      <origin
+        xyz="0.0650617938997774 -3.74272418668387E-06 0.00884791201131907"
+        rpy="0 0 0" />
+      <mass
+        value="0.255566385563294" />
+      <inertia
+        ixx="0.00024551385027943"
+        ixy="1.05634262378188E-07"
+        ixz="1.70511900676993E-05"
+        iyy="0.00127080560186476"
+        iyz="1.1028518537721E-09"
+        izz="0.00126072659055335" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_2"
+    type="fixed">
+    <origin
+      xyz="0.004 0 -0.084"
+      rpy="1.5708 -2.1829E-14 -1.5708" />
+    <parent
+      link="right_arm_link_1" />
+    <child
+      link="right_arm_link_2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="right_arm_link_3">
+    <inertial>
+      <origin
+        xyz="0.0153020226123044 -5.81423797996194E-13 -0.0262980249667745"
+        rpy="0 0 0" />
+      <mass
+        value="0.0789715110556532" />
+      <inertia
+        ixx="7.19666232277633E-05"
+        ixy="1.68404549474258E-15"
+        ixz="1.68863370887187E-05"
+        iyy="0.000116283270534729"
+        iyz="-6.41649606133214E-16"
+        izz="0.000104168336512131" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 0.00392156862745098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_3.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_3"
+    type="fixed">
+    <origin
+      xyz="0.204 0 0.01"
+      rpy="-1.5708 3.8018E-11 1.5708" />
+    <parent
+      link="right_arm_link_2" />
+    <child
+      link="right_arm_link_3" />
+    <axis
+      xyz="0.0048522 0 0.99999" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="right_arm_link_4">
+    <inertial>
+      <origin
+        xyz="0.110286427763568 -2.47783699109938E-05 0.0247402908898989"
+        rpy="0 0 0" />
+      <mass
+        value="0.1635924370838" />
+      <inertia
+        ixx="9.17176019284682E-05"
+        ixy="3.47472024491752E-07"
+        ixz="1.44062358020974E-05"
+        iyy="0.000940638096634904"
+        iyz="-9.43821184593951E-09"
+        izz="0.000935522761596194" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_4.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_4.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_4"
+    type="fixed">
+    <origin
+      xyz="0.02 0 -0.051"
+      rpy="3.1416 1.5708 0" />
+    <parent
+      link="right_arm_link_3" />
+    <child
+      link="right_arm_link_4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="right_arm_link_5">
+    <inertial>
+      <origin
+        xyz="-2.02615701994091E-15 0.0169801683752191 -0.0349097801090397"
+        rpy="0 0 0" />
+      <mass
+        value="0.0980468372542702" />
+      <inertia
+        ixx="0.000146622459303631"
+        ixy="1.29985969140156E-08"
+        ixz="-5.66526182695182E-11"
+        iyy="9.25528351448713E-05"
+        iyz="2.22452497831366E-05"
+        izz="0.000108961772352676" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_5.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.666666666666667 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_5.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_5"
+    type="fixed">
+    <origin
+      xyz="0.2275 0 0.022412"
+      rpy="-1.5664 -3.7816E-11 1.5708" />
+    <parent
+      link="right_arm_link_4" />
+    <child
+      link="right_arm_link_5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="right_arm_link_6">
+    <inertial>
+      <origin
+        xyz="0.0287664746286838 -7.08211267408387E-13 0.0186548764386218"
+        rpy="0 0 0" />
+      <mass
+        value="0.0342933650278287" />
+      <inertia
+        ixx="2.12655468606329E-05"
+        ixy="-2.18723494617966E-17"
+        ixz="5.76746741176577E-07"
+        iyy="2.81264708549031E-05"
+        iyz="8.96065566988484E-17"
+        izz="2.57654425067357E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_6.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/right_arm_link_6.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_arm_joint_6"
+    type="fixed">
+    <origin
+      xyz="0 0.017758 -0.055578"
+      rpy="-5.1124E-11 1.5664 -1.5708" />
+    <parent
+      link="right_arm_link_5" />
+    <child
+      link="right_arm_link_6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_0">
+  </link>
+  <joint
+    name="left_arm_joint_0"
+    type="fixed">
+    <origin
+      xyz="0.0056343 0.14595 0.917"
+      rpy="1.5734 -0.018325 3.0023" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_arm_link_0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_arm_Link_1">
+    <inertial>
+      <origin
+        xyz="0.00466685580630952 -1.11022302462516E-15 0.0356602455160837"
+        rpy="0 0 0" />
+      <mass
+        value="0.107035798022396" />
+      <inertia
+        ixx="0.000188034571467992"
+        ixy="-1.1808830424807E-20"
+        ixz="-7.04431263850407E-06"
+        iyy="0.000157075498483852"
+        iyz="-1.18319914819585E-19"
+        izz="0.000126512668861709" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_Link_1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_Link_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_1"
+    type="fixed">
+    <origin
+      xyz="0 0 0.001"
+      rpy="0 0 0" />
+    <parent
+      link="left_arm_link_0" />
+    <child
+      link="left_arm_Link_1" />
+    <axis
+      xyz="0.13878 0 0.99032" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_2">
+    <inertial>
+      <origin
+        xyz="0.0788175837647441 -5.95414185977639E-06 0.000165336903578506"
+        rpy="0 0 0" />
+      <mass
+        value="0.160646914181548" />
+      <inertia
+        ixx="0.000125127504737375"
+        ixy="9.24766480165639E-08"
+        ixz="-7.06597547048381E-05"
+        iyy="0.00102428232334361"
+        iyz="9.40786019061417E-09"
+        izz="0.00104065620236747" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_2"
+    type="fixed">
+    <origin
+      xyz="0.015619 0 0.082632"
+      rpy="1.4316 -1.5635E-13 -1.5708" />
+    <parent
+      link="left_arm_Link_1" />
+    <child
+      link="left_arm_link_2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.78"
+      upper="0.78"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_3">
+    <inertial>
+      <origin
+        xyz="0.000486585292986369 0.0153020226121923 -0.0262935230028779"
+        rpy="0 0 0" />
+      <mass
+        value="0.0789715110556529" />
+      <inertia
+        ixx="0.0001162791229741"
+        ixy="-3.12443359916851E-07"
+        ixz="2.24120996575773E-07"
+        iyy="7.19666232277628E-05"
+        iyz="1.68834463134955E-05"
+        izz="0.000104172484072759" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 0.00392156862745098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_3.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_3"
+    type="fixed">
+    <origin
+      xyz="0.204 0 0.01"
+      rpy="-3.1416 1.5523 1.2227E-10" />
+    <parent
+      link="left_arm_link_2" />
+    <child
+      link="left_arm_link_3" />
+    <axis
+      xyz="-0.018503 0 0.99983" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_4">
+    <inertial>
+      <origin
+        xyz="0.110286427736446 -2.47783948261193E-05 -0.0142597091140066"
+        rpy="0 0 0" />
+      <mass
+        value="0.163592437060337" />
+      <inertia
+        ixx="9.17176023887561E-05"
+        ixy="3.47471633503439E-07"
+        ixz="1.44062356695314E-05"
+        iyy="0.000940638096231336"
+        iyz="-9.43767718859236E-09"
+        izz="0.000935522761509331" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_4.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_4.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_4"
+    type="fixed">
+    <origin
+      xyz="0.00094364 -0.019 -0.050991"
+      rpy="1.5708 1.5523 3.715E-14" />
+    <parent
+      link="left_arm_link_3" />
+    <child
+      link="left_arm_link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_5">
+    <inertial>
+      <origin
+        xyz="-1.74860126378462E-15 0.0171321551873778 -0.0353354435015221"
+        rpy="0 0 0" />
+      <mass
+        value="0.0980468372542703" />
+      <inertia
+        ixx="0.000146622459303631"
+        ixy="1.29987203700121E-08"
+        ixz="-2.26275918308371E-18"
+        iyy="9.23592447263128E-05"
+        iyz="2.21728899253533E-05"
+        izz="0.000109155362771234" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_5.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.666666666666667 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_5.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_5"
+    type="fixed">
+    <origin
+      xyz="0.227 0 -0.016588"
+      rpy="-1.5708 1.4988E-14 1.5708" />
+    <parent
+      link="left_arm_link_4" />
+    <child
+      link="left_arm_link_5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link
+    name="left_arm_link_6">
+    <inertial>
+      <origin
+        xyz="0.028766474628684 0.00258890688673372 0.0184743599638002"
+        rpy="0 0 0" />
+      <mass
+        value="0.0342933650278285" />
+      <inertia
+        ixx="2.1265546860633E-05"
+        ixy="8.00403913178448E-08"
+        ixz="5.7116577209727E-07"
+        iyy="2.80809983048714E-05"
+        iyz="-3.24490719253941E-07"
+        izz="2.58109150567672E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_6.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://neurobotboth/meshes/left_arm_link_6.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_joint_6"
+    type="fixed">
+    <origin
+      xyz="0 0.018 -0.056"
+      rpy="1.71 1.5708 0" />
+    <parent
+      link="left_arm_link_5" />
+    <child
+      link="left_arm_link_6" />
+    <axis
+      xyz="0 0.13878 0.99032" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+  <link name="base_l_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
+      <geometry>
+        <cylinder radius="0.033" length = "0.023"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
+      <geometry>
+        <cylinder radius="0.033" length = "0.023"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_l_wheel_joint" type="fixed">
+    <origin xyz="0 0.15 0" rpy="1.57 0 0"/>
+    <parent link="base_leg"/>
+    <child link="base_l_wheel_link"/>
+    <axis xyz="0 0 1"/>
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+
+  <link name="base_r_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0.01" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 1.5707 " />
+      <geometry>
+        <cylinder radius="0.033" length = "0.023"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
+      <geometry>
+        <cylinder radius="0.033" length = "0.023"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_r_wheel_joint" type="fixed">
+    <origin xyz="0 -0.15 0" rpy="-1.57 0 0"/>
+    <parent link="base_leg"/>
+    <child link="base_r_wheel_link"/>
+    <axis xyz="0 1 0"/>
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="2"
+      velocity="0.5" />
+  </joint>
+</robot>

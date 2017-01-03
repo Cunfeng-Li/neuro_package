@@ -11,6 +11,7 @@
     </node>
     <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find neuro)/nav_tasks.rviz"--> 
     <!--/node-->
+
     <node name="pub_location" pkg="neuro" type="pub_location.py" >
     </node>
     <node name="pub_recognize_goal" pkg="neuro" type="pub_recognize_goal.py" >
